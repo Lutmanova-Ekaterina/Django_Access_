@@ -1,0 +1,43 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Заголовок</td>
+                            <td>{{ object.head }}</td>
+                        </tr>
+                        <tr>
+                            <td>Slug</td>
+                            <td>{{ object.slug}}</td>
+                        </tr>
+                        <tr>
+                            <td>Content</td>
+                            <td>{{ object.content }}</td>
+                        </tr>
+                        <tr>
+                            <td>Изображения</td>
+                            <td>{{ object.image }}</td>
+                        </tr>
+                        <tr>
+                            <td>Дата создания</td>
+                            <td>{{ object.date_create }}</td>
+                        </tr>
+                        <tr>
+                            <td>Признак публикации</td>
+                            <td>{{ object.sing_publication }}</td>
+                        </tr>
+                        <tr>
+                            <td>Количество просмотров</td>
+                            <td>{{ object.views }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

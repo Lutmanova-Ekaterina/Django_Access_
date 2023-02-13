@@ -1,0 +1,49 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Заголовок</th>
+            <th scope="col">Slug</th>
+            <th scope="col">Содержимое</th>
+            <th scope="col">Изображение</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Признак публикации</th>
+            <th scope="col">Количество просмотров</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'catalog:detail' object.pk %}">
+                        #{{ object.pk }}
+                    </a>
+                </td>
+                <td>{{ object.head }}</td>
+                <td>{{ object.slug }}</td>
+                <td>{{ object.content }}</td>
+                <td>
+                    <img src="/media/{{ object.image }}" alt="" border=3 height=100 width=150></img>
+                </td>
+                <td>{{ object.date_create }}</td>
+                <td>{{ object.publication_display }} 
+                    {% if object.sing_publication == 'active' %}
+                        <a class="btn btn-danger" href="{% url 'catalog:status' object.pk %}">Inactive</a>
+                    {% else %}
+                        <a class="btn btn-info" href="{% url 'catalog:status' object.pk %}">Active</a>
+                    {% endif %}
+                </td>
+                <td>{{ object.views }}</td>
+                <td>
+                    <a class="btn btn-info" href="{% url 'catalog:update' object.pk %}">Update</a>
+                    <a class="btn btn-danger" href="{% url 'catalog:delete' object.pk %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

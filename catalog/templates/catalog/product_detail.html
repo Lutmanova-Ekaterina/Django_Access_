@@ -1,0 +1,48 @@
+{% extends 'catalog/base.html' %}
+{% load mediapath from template_filters %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Наименование</td>
+                            <td>{{ object.product_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Описание</td>
+                            <td>{{ object.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Изображение</td>
+                            <td>{% mediapath object.image %}</td>
+                        </tr>
+                        <tr>
+                            <td>Категория</td>
+                            <td>{{ object.category }}</td>
+                        </tr>
+                        <tr>
+                            <td>Цена покупки</td>
+                            <td>{{ object.price }}</td>
+                        </tr>
+                        <tr>
+                            <td>Дата создания</td>
+                            <td>{{ object.date_create }}</td>
+                        </tr>
+                        <tr>
+                            <td>Дата изменения</td>
+                            <td>{{ object.date_update }}</td>
+                        </tr>
+                        <tr>
+                            <td>Версия</td>
+                            <td>{{ object.Version.product_id }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

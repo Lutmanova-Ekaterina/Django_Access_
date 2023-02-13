@@ -1,0 +1,14 @@
+    {% extends 'catalog/base.html' %}
+    {% load mediapath from template_filters %}
+    {% block content %}
+    <div class="'container">
+        <div class="card">
+            {% for picture in pictures_list %}
+            <div class="photo">
+                <img scr="{% mediapath picture.image %}" alt="" border=5 height=200 width=300>
+            </div>
+        </div>
+    </div>
+            {% endfor %}
+
+{% endblock %}
