@@ -4,7 +4,7 @@ from config import settings
 
 @register.filter(is_safe=True)
 def mediapath(text):
-    return f'/media/{text}'
+    return f'{settings.MEDIA_URL}{text}'
 
 
 @register.simple_tag

@@ -16,6 +16,17 @@
             </nav>
         </div>
     </div>
+    <div class="float-end">
+        {% if user.is_authenticated %}
+        <a class="btn btn-link" href="{% url 'users:profile' %}">Профиль</a>
+        |
+        <a class="btn btn-outline-info" href="{% url 'user:logout' %}">Выход</a>
+        {% else %}
+        <a class="btn btn-outline-info" href="{% url 'users:login' %}">Выход</a>
+        <a class="btn btn-outline-info" href="{% url 'users:register' %}">Регистрация</a>
+        <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
+        {% endif %}
+    </div>
 </nav>
 
 

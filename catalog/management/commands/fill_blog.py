@@ -6,7 +6,7 @@ import datetime
 class Command(BaseCommand):
     def handle(self, *args, **options):
         blogs = [
-             {'product_name': 'cake',
+            {'product_name': 'cake',
              'title': 'Cake is a flour confection made from flour, sugar, and other ingredients, and is usually baked. In their oldest forms, cakes were modifications of bread, but cakes now cover a wide range of preparations that can be simple or elaborate, and which share features with desserts such as pastries, meringues, custards, and pies. The most common ingredients include flour, sugar, eggs, fat (such as butter, oil or margarine), a liquid, and a leavening agent, such as baking soda or baking powder.',
              'category': 1, 'image': 'cake.jpg', 'price': '200',
              'date_create': datetime.date.today(),
@@ -17,11 +17,11 @@ class Command(BaseCommand):
              'date_create': datetime.date.today(),
              'date_update': datetime.date.today()},
         ]
-        
+
         blogs_list = []
-        
+
         for item in blogs:
             blogs_list.append(Blog(**item))
-            
+
         Blog.objects.all().delete()
         Blog.objects.bulk_create(blogs_list)

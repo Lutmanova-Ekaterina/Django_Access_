@@ -1,4 +1,5 @@
 from django import forms
+
 from catalog.models import Product, Version
 
 
@@ -17,9 +18,7 @@ class ProductForm(forms.ModelForm):
         allowed_name = cleaned_data.get('product_name')
         allowed_title = cleaned_data.get('title')
         if allowed_name and allowed_title:
-            if (
-                    'казино' or 'криптовалюта' or 'крипта' or 'биржа' or 'дешево' or 'бесплатно' or 'обман' or 'полиция' or 'радар') in (
-                    allowed_name and allowed_title):
+            if ('казино' or 'криптовалюта' or 'крипта' or 'биржа' or 'дешево' or 'бесплатно' or 'обман' or 'полиция' or 'радар') in (allowed_name and allowed_title):
                 raise forms.ValidationError("Название и описание не должны содержать запрещенных слов")
         return cleaned_data
 

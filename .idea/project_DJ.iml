@@ -18,6 +18,8 @@
     </content>
     <orderEntry type="jdk" jdkName="C:\Users\Екатерина\AppData\Local\Programs\Python\Python311\python.exe" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jquery-2.2.4" level="application" />
+    <orderEntry type="library" name="jquery.formset" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
