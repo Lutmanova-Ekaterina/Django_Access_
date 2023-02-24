@@ -3,9 +3,10 @@ from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from catalog.models import Product, Blog, Version
 from catalog.forms import ProductForm, VersionForm
+from catalog.service import cache_category
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 
 
@@ -26,6 +27,11 @@ def pictures(request):
 
 class ProductListView(ListView):
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['category'] = cache_category(self)
+        return context_data
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -48,6 +54,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('catalog:product')
     raise_exception = True
     permission_denied_message = "Access is restricted to authenticated users"
+
+    def get_queryset(self):
+        return Product.objects.filter(user_create=self.request.user)
+
+    def test_func(self):
+        product = self.get_object()
+        return product.user_create == self.request.user or self.request.user.has_perms(
+            perm_list=['set_sign_of publication', 'change_description_product', 'change_category_product'])
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
@@ -104,7 +118,7 @@ class BlogListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(sing_of_publication=Blog.STATUS_ACTIVE)
+        queryset = queryset.filter(publication=Blog.STATUS_ACTIVE)
 
         return queryset
 
@@ -138,10 +152,10 @@ class BlogDetailView(DetailView):
 
 def change_status(request, pk):
     blog_item = get_object_or_404(Blog, pk=pk)
-    if blog_item.sing_of_publication == Blog.STATUS_ACTIVE:
-        blog_item.sing_of_publication = Blog.STATUS_INACTIVE
+    if blog_item.publication == Blog.STATUS_ACTIVE:
+        blog_item.publication = Blog.STATUS_INACTIVE
     else:
-        blog_item.sing_of_publication = Blog.STATUS_ACTIVE
+        blog_item.publication = Blog.STATUS_ACTIVE
     blog_item.save()
 
     return redirect(reverse('catalog:blog'))
