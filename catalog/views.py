@@ -43,12 +43,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
+        self.object.user_create = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product')
@@ -61,7 +61,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def test_func(self):
         product = self.get_object()
         return product.user_create == self.request.user or self.request.user.has_perms(
-            perm_list=['set_sign_of publication', 'change_description_product', 'change_category_product'])
+            perm_list=['set_publication', 'change_description_product', 'change_category_product'])
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
@@ -145,7 +145,7 @@ class BlogDetailView(DetailView):
 
     def get(self, *args, **kwargs):
         blog_item = get_object_or_404(Blog)
-        blog_item.views_number += 1
+        blog_item.views += 1
         blog_item.save()
         return super().get(self, *args, **kwargs)
 

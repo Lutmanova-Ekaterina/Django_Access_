@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(verbose_name='Содержимое')),
                 ('image', models.ImageField(blank=True, null=True, upload_to='media/', verbose_name='Изображение')),
                 ('date_create', models.DateTimeField(verbose_name='Дата создания')),
-                ('sing_of_publication', models.CharField(choices=[('active', 'Опубликован'), ('inactive', 'Не опубликован')], default='active', max_length=250, verbose_name='Признак публикации')),
-                ('views_number', models.IntegerField(default=0, verbose_name='Количество просмотров')),
+                ('publication', models.CharField(choices=[('active', 'Опубликован'), ('inactive', 'Не опубликован')], default='active', max_length=250, verbose_name='Признак публикации')),
+                ('views', models.IntegerField(default=0, verbose_name='Количество просмотров')),
             ],
             options={
                 'verbose_name': 'Блог',

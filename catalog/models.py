@@ -9,13 +9,13 @@ NULLABLE = {'blank': True, 'null': True}
 class Product(models.Model):
     product_name = models.CharField(max_length=250, verbose_name='Наименование')
     title = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to='products/', verbose_name='Изображение', **NULLABLE)
+    image = models.ImageField(upload_to='media/', verbose_name='Изображение', **NULLABLE)
     category = models.CharField(max_length=250, verbose_name='Категория')
     price = models.FloatField(verbose_name='Цена за покупку')
     date_create = models.DateTimeField(verbose_name='Дата создания')
     date_update = models.DateTimeField(verbose_name='Дата последнего изменения')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    publication = models.BooleanField(default=False, verbose_name='публикациz')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    publication = models.BooleanField(default=False, verbose_name='публикация')
 
 
 class Meta:
@@ -53,7 +53,7 @@ class Blog(models.Model):
     content = models.TextField(verbose_name='Содержимое')
     image = models.ImageField(upload_to='media/', verbose_name='Изображение', **NULLABLE)
     date_create = models.DateTimeField(verbose_name='Дата создания')
-    views_number = models.IntegerField(default=0, verbose_name='Количество просмотров')
+    views = models.IntegerField(default=0, verbose_name='Количество просмотров')
     publication = models.CharField(choices=STATUSES, default=STATUS_ACTIVE, max_length=250,
                                    verbose_name='Признак публикации')
 

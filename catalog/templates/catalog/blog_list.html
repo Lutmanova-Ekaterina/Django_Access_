@@ -30,7 +30,7 @@
                 </td>
                 <td>{{ object.date_create }}</td>
                 <td>{{ object.publication_display }} 
-                    {% if object.sing_publication == 'active' %}
+                    {% if object.publication == 'active' %}
                         <a class="btn btn-danger" href="{% url 'catalog:status' object.pk %}">Inactive</a>
                     {% else %}
                         <a class="btn btn-info" href="{% url 'catalog:status' object.pk %}">Active</a>

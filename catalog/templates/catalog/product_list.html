@@ -25,21 +25,21 @@
         <tbody>
         {% for object in object_list %}
             <tr>
-                <img>
+                <td>
                     <a href="{% url 'catalog:product_detail' object.pk %}
                     </a>
                 </td>
                 <td>{{  object.Version.product_id }}</td>
                 <td>{{  object.product_name }}</td>
-                <td>{{  object.title|truncate-chars:100 }}</td>
-                <td><img src="{% mediapath object.image %}" alt="" style="width:200px; height:auto;"></td>
+                <td>{{  object.title|truncatechars:100 }}</td>
+                <td><img src='{% mediapath object.image %}' alt='' border=5 height=200 width=300></td>
                 <td>{{  object.category }}</td>
                 <td>{{  object.price }}</td>
                 <td>{{  object.date_create }}</td>
                 <td>{{  object.date_update }}</td>
                 <td>
-                    <a class="btn btn-info" href="{% url 'catalog:product_version' object.pk %}">Version</a>
-                    <a class="btn btn-danger" href="{% url 'catalog:product_delete' object.pk %}">Delete</a>
+                    <a class='btn btn-info' href='{% url 'catalog:product_version' object.pk %}'>Version</a>
+                    <a class='btn btn-danger' href='{% url 'catalog:product_delete' object.pk %}'>Delete</a>
                 </td>
             </tr>
         {% endfor %}

@@ -52,6 +52,7 @@ class CustomRegisterView(CreateView):
 
 
 class ActivateAccount(View):
+
     def get(self, request, uidb64, token, *args, **kwargs):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
